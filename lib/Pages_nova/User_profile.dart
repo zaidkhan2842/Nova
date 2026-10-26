@@ -162,14 +162,7 @@ class _PageHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        InkWell(
-          onTap: () => Navigator.of(context).maybePop(),
-          customBorder: const CircleBorder(),
-          child: const Padding(
-            padding: EdgeInsets.all(4),
-            child: Icon(Icons.arrow_back, size: 20, color: _C.textDark),
-          ),
-        ),
+        
         const SizedBox(width: 12),
         Expanded(
           child: Column(

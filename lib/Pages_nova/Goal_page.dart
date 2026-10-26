@@ -212,14 +212,7 @@ class _GoalsPageState extends State<GoalsPage> {
   Widget _header(BuildContext context) {
     return Row(
       children: [
-        InkWell(
-          onTap: () => Navigator.maybePop(context),
-          borderRadius: BorderRadius.circular(20),
-          child: const Padding(
-            padding: EdgeInsets.all(6),
-            child: Icon(Icons.arrow_back, size: 22, color: _C.ink),
-          ),
-        ),
+        
         const SizedBox(width: 10),
         const Expanded(
           child: Column(

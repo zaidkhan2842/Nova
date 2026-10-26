@@ -23,8 +23,12 @@ class _MainScreenState extends State<MainScreen> {
 
   static const Color _navSelected = Color(0xFFE4F1CF);
 
-  final List<Widget> _pages = [
-    const HomePage(),
+  List<Widget> get _pages => [
+    HomePage(
+    onCardsTap: () => _onTabTapped(1),
+    onGoalsTap: () => _onTabTapped(2),
+    onProfileTap: () => _onTabTapped(3),
+  ),
     const CardScreen(),
     const GoalsPage(),
     const ProfileSecurityPage()

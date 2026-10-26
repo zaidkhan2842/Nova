@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:nova/Pages_nova/Goal_page.dart';
+
 import 'package:nova/Pages_nova/check_history.dart';
 import 'package:nova/Pages_nova/pay_money_page.dart';
 import 'package:nova/Pages_nova/payment_scanner_page.dart';
@@ -74,13 +74,26 @@ class _Txn {
 }
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final VoidCallback? onGoalsTap;
+  final VoidCallback? onCardsTap;
+  final VoidCallback? onProfileTap;
+
+  const HomePage({
+    super.key,
+    this.onGoalsTap,
+    this.onCardsTap,
+    this.onProfileTap,
+  });
+
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  
+
+  
   // -------------------------------------------------------------------------
   // DEMO DATA  (this is what the API will fill later)
   // -------------------------------------------------------------------------
@@ -256,11 +269,18 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-        CircleAvatar(
-          radius: 18,
-          backgroundColor: NovaColors.lime,
-          child: Text(initial, style: _ts(15, FontWeight.w600, NovaColors.navy)),
-        ),
+        InkWell(
+  customBorder: const CircleBorder(),
+  onTap: () => widget.onProfileTap?.call(),
+  child: CircleAvatar(
+    radius: 18,
+    backgroundColor: NovaColors.lime,
+    child: Text(
+      initial,
+      style: _ts(15, FontWeight.w600, NovaColors.navy),
+    ),
+  ),
+),
       ],
     );
   }
@@ -268,8 +288,10 @@ class _HomePageState extends State<HomePage> {
   // ---- Your money ---------------------------------------------------------
   Widget _moneySection() {
     return Column(
+      
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        
         Text('Your money', style: _ts(12, FontWeight.w500, NovaColors.slate)),
         const SizedBox(height: 2),
         Text(
@@ -329,7 +351,9 @@ class _HomePageState extends State<HomePage> {
 
   // ---- Debit card ---------------------------------------------------------
   Widget _card() {
-    return AspectRatio(
+    return GestureDetector(
+    onTap: () => widget.onCardsTap?.call(),
+    child:  AspectRatio(
       aspectRatio: 2.05,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(22),
@@ -464,6 +488,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
+    )
     );
   }
 
@@ -545,10 +570,7 @@ class _HomePageState extends State<HomePage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _sectionTitle('Your goals', onArrowTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => GoalsPage()),
-              );
+            widget.onGoalsTap?.call();
         }),
         Container(
           width: double.infinity,
